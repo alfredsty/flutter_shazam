@@ -118,7 +118,9 @@ class FirstTab extends StatelessWidget {
       },
     ];
 
-    return Center(child: Text('첫번째 페이지'));
+    return SafeArea(
+      child: Container(),
+    );
   }
 }
 
@@ -128,7 +130,104 @@ class SecondTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('두번째 페이지'));
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.blue[200]!, Colors.blue[800]!],
+        ),
+      ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      DefaultTabController.of(context)!.animateTo(0);
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          '라이브러리',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      DefaultTabController.of(context)!.animateTo(2);
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.show_chart,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          '차트',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 90,
+            ),
+            Text(
+              'Shazam하려면 탭하세요',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 30),
+            Container(
+              alignment: Alignment.center,
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue[300],
+              ),
+              child: Image.network(
+                "https://i.ibb.co/hxNbZ8p/shazam.png",
+                color: Colors.white,
+                width: 130,
+                height: 130,
+              ),
+            ),
+            SizedBox(height: 50),
+            Container(
+              alignment: Alignment.center,
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.blue[300],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 30,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -192,6 +291,236 @@ class ThirdTab extends StatelessWidget {
       ],
     };
 
-    return Center(child: Text('세번째 페이지'));
+    return SafeArea(
+      child: Column(
+        children: [
+          Text(
+            '차트',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 150,
+                      color: Colors.purple[900],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 350,
+                          height: 25,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                            ),
+                            child: Text(
+                              '국가 및 도시별 차트',
+                              style: TextStyle(
+                                color: Colors.purple[900],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '전 세계',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 8,
+                  color: Colors.grey[400],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text('대한민국 차트'),
+                          Spacer(),
+                          Text(
+                            '모두 보기',
+                            style: TextStyle(
+                              color: Colors.blue[300],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ...chartData['korea']!.map(
+                          (song) {
+                            // 스프레드 연산자: 리스트 등의 이터러블 안에 있는 요소를 분해한다.
+                            String imageUrl = song['imageUrl']!;
+                            String name = song['name']!;
+                            String artist = song['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 8,
+                  color: Colors.grey[400],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text('글로벌 차트'),
+                          Spacer(),
+                          Text(
+                            '모두 보기',
+                            style: TextStyle(
+                              color: Colors.blue[300],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ...chartData['global']!.map(
+                          (song) {
+                            // 스프레드 연산자: 리스트 등의 이터러블 안에 있는 요소를 분해한다.
+                            String imageUrl = song['imageUrl']!;
+                            String name = song['name']!;
+                            String artist = song['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 8,
+                  color: Colors.grey[400],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text('뉴욕 차트'),
+                          Spacer(),
+                          Text(
+                            '모두 보기',
+                            style: TextStyle(
+                              color: Colors.blue[300],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ...chartData['newyork']!.map(
+                          (song) {
+                            // 스프레드 연산자: 리스트 등의 이터러블 안에 있는 요소를 분해한다.
+                            String imageUrl = song['imageUrl']!;
+                            String name = song['name']!;
+                            String artist = song['artist']!;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    imageUrl,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.29,
+                                  ),
+                                  Text(
+                                    name,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(artist),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
