@@ -1,6 +1,6 @@
 # <div align="center">Shazam(클론코딩)</div>
 
-* ###DefaultTabController를 사용하여 탭바를 구현하였다.
+* DefaultTabController를 사용하여 탭바를 구현하였다.
 * Array로 데이터를 묶어 관리하였다. 나중에는 MongoDB나 FireBase로 데이터를 관리하려고 한다.
 * ListView 와GridView를 사용해서 스크롤뷰를 만들었다.
 
